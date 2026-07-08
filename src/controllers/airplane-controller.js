@@ -31,7 +31,7 @@ async function createAirpalne(req, res) {
  * GET : /airplanes
  * req-body {}
  */
-async function getAirplanes(req, res){
+async function getAirplanes(req, res) {
   try {
     const airplanes = await AirplaneServices.getAirplanes();
     SuccessResponse.data = airplanes;
@@ -51,7 +51,7 @@ async function getAirplanes(req, res){
  * GET : /airplanes/:id
  * req-body {}
  */
-async function getAirplane(req, res){
+async function getAirplane(req, res) {
   try {
     const airplanes = await AirplaneServices.getAirplane(req.params.id);
     SuccessResponse.data = airplanes;
@@ -70,7 +70,7 @@ async function getAirplane(req, res){
  * DELETE : /airplanes/:id
  * req-body {}
  */
-async function destroyAirplane(req, res){
+async function destroyAirplane(req, res) {
   try {
     const airplanes = await AirplaneServices.destoryAirplane(req.params.id);
     SuccessResponse.data = airplanes;
@@ -85,9 +85,31 @@ async function destroyAirplane(req, res){
   }
 }
 
+
+
+/**
+ * PATCH : /airplanes/:id
+ * req-body {capacity: 200}
+ */
+async function updateAirplane(req, res) {
+  try {
+    const airplane = await AirplaneServices.updateAirplane(req.params.id, req.body);
+    SuccessResponse.data = airplane; return res
+      .status(StatusCodes.OK)
+      .json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res
+      .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(ErrorResponse);
+  }
+}
+
+
 module.exports = {
   createAirpalne,
   getAirplanes,
   getAirplane,
   destroyAirplane,
+  updateAirplane
 }

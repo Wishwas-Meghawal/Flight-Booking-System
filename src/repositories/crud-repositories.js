@@ -1,7 +1,7 @@
 //const { where } = require('sequelize');
 const { Logger } = require('../config');
 const { StatusCodes } = require('http-status-codes');
-const  AppError  = require('../utils/errors/app-error');
+const AppError = require('../utils/errors/app-error');
 
 class CrudRepository {
   constructor(model) {
@@ -21,8 +21,8 @@ class CrudRepository {
         id: data
       }
     });
-    if(!response){
-       throw new AppError('Not able to find the resourse', StatusCodes.NOT_FOUND);
+    if (!response) {
+      throw new AppError('Not able to find the resourse', StatusCodes.NOT_FOUND);
     }
     return response;
   }
@@ -38,13 +38,22 @@ class CrudRepository {
 
     return response;
   }
+
   async update(id, data) { // data --> {col, value...}
     const response = await this.model.update(data, {
       where: {
         id: id
       }
     });
-    return response;
+    // response[0] = affected rows
+    if (response[0] === 0) {
+      throw new AppError(
+        'Airplane not found',
+        StatusCodes.NOT_FOUND
+      );
+    }
+
+    return await this.model.findByPk(id);
   }
 }
 
