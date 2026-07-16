@@ -93,20 +93,20 @@ async function destroyAirport(req, res) {
  * PATCH : /airports/:id
  * req-body {location: 'Los Angeles'}
  */
-// async function updateAirport(req, res) {
-//   try {
-//     const airport = await AirportService.updateAirport(req.params.id, req.body);
-//     SuccessResponse.data = airport;
-//     return res
-//       .status(StatusCodes.OK)
-//       .json(SuccessResponse);
-//   } catch (error) {
-//     ErrorResponse.error = error;
-//     return res
-//       .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
-//       .json(ErrorResponse);
-//   }
-// }
+async function updateAirport(req, res) {
+  try {
+    const airport = await AirportService.updateAirport(req.params.id, req.body);
+    SuccessResponse.data = airport;
+    return res
+      .status(StatusCodes.OK)
+      .json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res
+      .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(ErrorResponse);
+  }
+}
 
 
 module.exports = {
@@ -114,5 +114,5 @@ module.exports = {
   getAirports,
   getAirport,
   destroyAirport,
-  //updateAirport
+  updateAirport
 }

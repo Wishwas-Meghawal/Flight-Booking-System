@@ -24,8 +24,8 @@ router.delete('/:id',
 
 
 // // /api/v1/airport/:id PATCH
-// router.patch('/:id',
-//     AirportController.updateAirport);
+router.patch('/:id',
+    AirportController.updateAirport);
 
 
 
