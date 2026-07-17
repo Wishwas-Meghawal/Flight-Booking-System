@@ -1,10 +1,14 @@
-function compareTime(timeString1, timeString2){
-  let dateTime1 = new Date(timeString1);
-  let dateTime2 = new Date(timeString2);
+function isDepartureTimeValid(departureTime, arrivalTime) {
+  const departure = new Date(departureTime);
+  const arrival = new Date(arrivalTime);
 
-  return dateTime1.getTime() > dateTime2.getTime();
+  if (isNaN(departure) || isNaN(arrival)) {
+    return false;
+  }
+
+  return departure < arrival;
 }
 
 module.exports = {
-  compareTime
-}
+  isDepartureTimeValid,
+};
